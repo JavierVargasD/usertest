@@ -1,7 +1,7 @@
-package com.prueba.api.usecases;
+package com.techtest.api.usecases;
 
-import com.prueba.api.infrastructure.persistence.UserRepository;
-import com.prueba.api.domain.User;
+import com.techtest.api.infrastructure.persistence.UserRepository;
+import com.techtest.api.domain.TUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +12,12 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public List<User> getAllUsers(){
+    public List<TUser> getAllUsers(){
         return userRepository.findAll();
+    }
+
+    public TUser createUser(TUser user){
+        return userRepository.save(user);
     }
 
 }

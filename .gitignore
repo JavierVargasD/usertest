@@ -27,3 +27,4 @@ gradlew.bat
 gradle/wrapper/gradle-wrapper.properties
 gradlew
 HELP.md
+build/*

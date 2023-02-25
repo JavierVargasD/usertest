@@ -1,14 +1,14 @@
-package com.prueba.api.infrastructure.http;
+package com.techtest.api.infrastructure.http;
 
-import com.prueba.api.usecases.UserService;
+import com.techtest.api.domain.TUser;
+import com.techtest.api.usecases.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/user")
@@ -17,8 +17,14 @@ public class UserController {
     @Autowired
     UserService userservice;
 
+    @PostMapping("/")
+    public ResponseEntity<TUser> create(@RequestBody TUser user){
+        System.out.println(user);
+        return new ResponseEntity<TUser>(userservice.createUser(user), HttpStatus.CREATED);
+    }
+
     @GetMapping("/getAll")
-    public ResponseEntity getAllUsers(){
+    public ResponseEntity getAll(){
 
         /*List<User> listaTetst = new ArrayList<User>();
         User userTest = new User();

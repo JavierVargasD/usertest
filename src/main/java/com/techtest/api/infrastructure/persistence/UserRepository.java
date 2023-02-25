@@ -1,12 +1,12 @@
-package com.prueba.api.infrastructure.persistence;
+package com.techtest.api.infrastructure.persistence;
 
-import com.prueba.api.domain.User;
+import com.techtest.api.domain.TUser;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
-public interface UserRepository extends CrudRepository<User, String> {
+public interface UserRepository extends CrudRepository<TUser, String> {
 
     @Override
-    List<User> findAll();
+    List<TUser> findAll();
 
 }
