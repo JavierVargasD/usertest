@@ -1,10 +1,8 @@
-package com.techtest.api.domain;
+package com.techtest.api.domain.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Getter @Setter

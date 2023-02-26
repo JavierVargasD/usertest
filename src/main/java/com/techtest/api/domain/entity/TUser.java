@@ -1,10 +1,11 @@
-package com.techtest.api.domain;
+package com.techtest.api.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.sql.Date;
 import java.util.List;
 
 
@@ -19,6 +20,11 @@ public class TUser {
     private String name;
     private String email;
     private String password;
+    private Date created;
+    private Date modified;
+
+    private Date lastLogin;
+    private boolean active;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Phones> phones;
