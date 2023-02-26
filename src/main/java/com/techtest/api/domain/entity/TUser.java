@@ -1,4 +1,4 @@
-package com.techtest.api.domain;
+package com.techtest.api.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

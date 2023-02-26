@@ -1,4 +1,4 @@
-package com.techtest.api.domain;
+package com.techtest.api.domain.entity;
 
 import lombok.Getter;
 import lombok.Setter;
