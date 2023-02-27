@@ -1,8 +1,10 @@
 package com.techtest.api.domain.exceptions;
 
+import com.techtest.api.domain.entity.Message;
+
 public class EmailAlreadyExistException extends CreationUserException{
-    @Override
-    public String getMessage() {
-        return "Email already exits";
+    public Message getCustomMessage() {
+        return new Message("Email already exists");
     }
+
 }
