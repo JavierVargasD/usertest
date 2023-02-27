@@ -1,6 +1,7 @@
 package com.techtest.api.infrastructure.http;
 
 import com.techtest.api.domain.entity.Login;
+import com.techtest.api.domain.entity.Message;
 import com.techtest.api.domain.entity.TUser;
 import com.techtest.api.domain.exceptions.CreationUserException;
 import com.techtest.api.usecases.UserService;
@@ -20,11 +21,11 @@ public class UserController {
     UserService userservice;
 
     @PostMapping("")
-    public ResponseEntity<TUser> create(@RequestBody TUser user){
+    public ResponseEntity create(@RequestBody TUser user){
         try {
             return new ResponseEntity<TUser>(userservice.createUser(user), HttpStatus.CREATED);
         } catch (CreationUserException e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<Message>(e.getCustomMessage(), HttpStatus.BAD_REQUEST);
         }
     }
     @GetMapping("")
