@@ -8,6 +8,7 @@ import com.techtest.api.domain.exceptions.InvalidPasswordException;
 import com.techtest.api.infrastructure.persistence.UserRepository;
 import com.techtest.api.domain.entity.TUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -16,6 +17,12 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+
+    @Value("${app.config.passwordRegexPattern}")
+    private String regexPasswordPattern;
+
+    @Value("${app.config.emailRegexPattern}")
+    private String regexEmailPattern;
     @Autowired
     UserRepository userRepository;
 
@@ -90,10 +97,10 @@ public class UserService {
     }
 
     private boolean validateEmail(String email){
-        return email.matches("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$");
+        return email.matches(regexEmailPattern);
     }
 
     private boolean validatePassword(String password){
-        return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$");
+        return password.matches(regexPasswordPattern);
     }
 }
