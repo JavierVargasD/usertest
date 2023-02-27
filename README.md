@@ -2,4 +2,4 @@
 
 A test project to manage users
 
-<img src="/Blank diagram.svg" width="128"/>
+<img src="https://github.com/JavierVargasD/usertest/blob/dev/Blank%20diagram.png" width="128"/>
