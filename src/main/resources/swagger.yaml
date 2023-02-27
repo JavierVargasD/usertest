@@ -1,0 +1,225 @@
+openapi: 3.0.3
+info:
+  title: Users Test API
+  description: |-
+    This is a sample User Test API on the OpenAPI 3.0 specification.  
+    
+    This API uses a in-memory database H2 to persist the data of an user, that have:
+    
+     - Name
+     - Email
+     - Password 
+     - An a list of phones
+     
+    You can modify the user an simulate a login 
+    
+    Some useful links:
+    - [The project repository](hhttps://github.com/JavierVargasD/usertest)
+    - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
+
+  contact:
+    email: javiervargasd@gmail.com
+  version: 1.0.11
+servers:
+  - url: http://localhost:8080/user/
+paths:
+  /user:
+    post:
+      tags:
+        - user
+      summary: Create user
+      description: Creation of an user in the data base
+      operationId: createUser
+      requestBody:
+        description: User Object to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserNew'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':                  
+          description: validation error -Email already exists, Invalid email format, Invalid Password format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+            
+  /user/:
+    get:
+      tags:
+        - user
+      summary: Get all users
+      description: ''
+      operationId: getAllUsers
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersList'          
+    put:
+      tags:
+        - user
+      summary: Update user
+      operationId: updateUser
+      requestBody:
+        description: Update an existent user in the store the id must by send in the request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersList'  
+          
+  /user/{id}:
+    get:
+      tags:
+        - user
+      summary: Get user by id
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+  /user/login:
+    post:
+      tags:
+        - user
+      summary: Logs user into the system
+      operationId: loginUser
+      requestBody:
+        description: a login object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+      responses:
+        '200':
+          description: Login Succeded
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Failed Login
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: db80fd69-dc54-4555-ae3e-726a3a64e2d9
+        name:
+          type: string
+          example: theUser
+        email:
+          type: string
+          example: John@domain.com
+        password:
+          type: string
+          example: passWord
+        created:
+          type: string
+          description: user creation date
+          format: AAAA-MM-DD
+          example: 2023-02-27
+        modified:
+          type: string
+          description: date of the last modification
+          format: AAAA-MM-DD
+          example: 2023-02-27
+        lastLogin:
+          type: string
+          description: date of the last login
+          format: AAAA-MM-DD
+          example: 2023-02-27
+        active:
+          type: boolean
+          description: is an active user
+        phones:
+          description: List of phones object
+          type: array
+          items:
+            $ref: '#/components/schemas/Phones'
+
+    UserNew:
+      type: object
+      properties:
+        name:
+          type: string
+          example: theUser
+        email:
+          type: string
+          example: John@domain.com
+        password:
+          type: string
+          example: passWord
+        phones:
+          description: List of phones object
+          type: array
+          items:
+            $ref: '#/components/schemas/Phones'        
+    Phones:
+      type: object
+      properties:
+        number:
+          type: string
+          example: 22222
+        citycode:
+          type: string
+          example: 22222
+        contrycode:
+          type: string
+          example: 22222
+    Message:
+      type: object
+      properties:
+        message:
+          type: string
+          example: message
+    Login:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    UsersList:
+      type: array
+      items:
+        $ref: '#/components/schemas/User'
+      
