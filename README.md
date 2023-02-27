@@ -2,4 +2,4 @@
 
 A test project to manage users
 
-![Diagram](Blank diagram.png)
+<img src="/Blank diagram.svg" width="128"/>
