@@ -10,12 +10,12 @@ info:
      - Email
      - Password 
      - An a list of phones
-     
+    
     You can modify the user an simulate a login 
     
     Some useful links:
     - [The project repository](hhttps://github.com/JavierVargasD/usertest)
-    - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
+    - [The source API definition](https://github.com/JavierVargasD/usertest/blob/master/src/main/resources/swagger.yaml)
 
   contact:
     email: javiervargasd@gmail.com
@@ -43,13 +43,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-        '404':                  
+        '404':
           description: validation error -Email already exists, Invalid email format, Invalid Password format
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Message'
-            
+
   /user/:
     get:
       tags:
@@ -63,7 +63,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UsersList'          
+                $ref: '#/components/schemas/UsersList'
     put:
       tags:
         - user
@@ -81,8 +81,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UsersList'  
-          
+                $ref: '#/components/schemas/UsersList'
+
   /user/{id}:
     get:
       tags:
@@ -101,7 +101,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'          
+                $ref: '#/components/schemas/User'
         '404':
           description: User not found
           content:
@@ -192,7 +192,7 @@ components:
           description: List of phones object
           type: array
           items:
-            $ref: '#/components/schemas/Phones'        
+            $ref: '#/components/schemas/Phones'
     Phones:
       type: object
       properties:
