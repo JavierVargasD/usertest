@@ -1,6 +1,7 @@
 package com.techtest.api.infrastructure.http;
 
 import com.techtest.api.domain.entity.Login;
+import com.techtest.api.domain.entity.Message;
 import com.techtest.api.domain.entity.TUser;
 import com.techtest.api.domain.exceptions.CreationUserException;
 import com.techtest.api.usecases.UserService;
@@ -15,45 +16,44 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-
     @Autowired
     UserService userservice;
 
-    @PostMapping("")
-    public ResponseEntity<TUser> create(@RequestBody TUser user){
+    @PostMapping(path= "/", consumes = "application/json", produces = "application/json")
+    public ResponseEntity create(@RequestBody TUser user){
         try {
             return new ResponseEntity<TUser>(userservice.createUser(user), HttpStatus.CREATED);
         } catch (CreationUserException e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<Message>(e.getCustomMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-    @GetMapping("")
+    @GetMapping(path="/", produces = "application/json")
     public ResponseEntity getAll(){
         return new ResponseEntity<List>(userservice.getAllUsers(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(path="/{id}", produces = "application/json")
     public ResponseEntity getUser(@PathVariable String id){
         Optional<TUser> optionalUser =  userservice.getUser(id);
         if(optionalUser.isEmpty()){
-            return new ResponseEntity("User not found",HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Message>(new Message("User not found"),HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity(optionalUser.get(), HttpStatus.OK);
         }
     }
 
-    @PutMapping("")
+    @PutMapping(path= "/", consumes = "application/json", produces = "application/json")
     public ResponseEntity updateUser(@RequestBody TUser user){
         return new ResponseEntity<TUser>(userservice.updateUser(user), HttpStatus.OK);
     }
 
-    @PostMapping("/login")
+    @PostMapping(path= "/login", consumes = "application/json", produces = "application/json")
     public ResponseEntity login(@RequestBody Login login){
         Boolean loginSuccesful = userservice.login(login);
         if(loginSuccesful){
-            return new ResponseEntity("Login Succeded", HttpStatus.OK);
+            return new ResponseEntity<Message>(new Message("Login Succeded"), HttpStatus.OK);
         } else {
-            return new ResponseEntity("Failed Login", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<Message>(new Message("Failed Login"), HttpStatus.UNAUTHORIZED);
         }
     }
 

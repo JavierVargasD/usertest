@@ -1,8 +1,10 @@
 package com.techtest.api.domain.exceptions;
 
+import com.techtest.api.domain.entity.Message;
+
 public class InvalidEmailException extends CreationUserException{
-    @Override
-    public String getMessage() {
-        return "Invalid email format";
+
+    public Message getCustomMessage() {
+        return new Message("Invalid email format");
     }
 }

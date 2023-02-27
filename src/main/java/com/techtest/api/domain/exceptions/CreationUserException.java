@@ -1,4 +1,12 @@
 package com.techtest.api.domain.exceptions;
 
-public class CreationUserException extends Exception{
+import com.techtest.api.domain.entity.Message;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
+public abstract class CreationUserException extends Exception{
+
+    public abstract Message getCustomMessage();
+
 }
