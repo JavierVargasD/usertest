@@ -16,11 +16,8 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+    @Autowired
     UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     public List<TUser> getAllUsers(){
         return userRepository.findAll();

@@ -5,6 +5,7 @@ import com.techtest.api.domain.entity.Message;
 import com.techtest.api.domain.entity.TUser;
 import com.techtest.api.domain.exceptions.CreationUserException;
 import com.techtest.api.usecases.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +16,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+    @Autowired
     UserService userservice;
-    public UserController(UserService userservice) {
-        this.userservice = userservice;
-    }
 
     @PostMapping(path= "/", consumes = "application/json", produces = "application/json")
     public ResponseEntity create(@RequestBody TUser user){
