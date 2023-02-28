@@ -23,6 +23,9 @@ public class UserService {
 
     @Value("${app.config.emailRegexPattern}")
     private String regexEmailPattern;
+
+    @Value("${app.config.invalidPasswordFormatMessage}")
+    private String invalidPasswordFormatMessage;
     @Autowired
     UserRepository userRepository;
 
@@ -88,7 +91,7 @@ public class UserService {
             throw new InvalidEmailException();
         }
         if(!validatePassword(user.getPassword())){
-            throw new InvalidPasswordException();
+            throw new InvalidPasswordException(invalidPasswordFormatMessage);
         }
     }
 
