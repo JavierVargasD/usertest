@@ -147,9 +147,12 @@ components:
           type: string
           example: theUser
         email:
+          description: Must be an valid email and should not exist in the database 
           type: string
           example: John@domain.com
         password:
+          description: Must have one uppercase character and min 8 characters
+          min: 8
           type: string
           example: passWord
         created:
